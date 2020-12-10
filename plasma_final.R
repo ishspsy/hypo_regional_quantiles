@@ -10,7 +10,7 @@ plot_save = 1
 ttest = 0
 
 # quantile intervals (choose among "low", "middle", "high")
-taus = "low" 
+taus = "high" 
 
 
 if (taus == "low"){
@@ -108,17 +108,21 @@ if (ttest==2){ind00 = 8:12}  # test2:smoking
 if (ttest==3 | ttest==4){ind00 = 12}  # test3:smoking
 
 
+
 # Estimating for lower quantile region
+if (taus == "low"){
 data4_real_coef= real_main_function(taus="low", n,p,X_tr, Y_tr,t_point)
-save(data4_real_coef, file="data4_real_plasma_coef_low.RData")
+save(data4_real_coef, file="data4_real_plasma_coef_low.RData")}
 
 # Estimating for middle quantile region
+if (taus == "middle"){
 data4_real_coef= real_main_function(taus="middle", n,p,X_tr, Y_tr,t_point)
-save(data4_real_coef, file="data4_real_plasma_coef_middle.RData")
+save(data4_real_coef, file="data4_real_plasma_coef_middle.RData")}
 
 # Estimating for upper quantile region
+if (taus == "high"){
 data4_real_coef= real_main_function(taus="high", n,p,X_tr, Y_tr,t_point)
-save(data4_real_coef, file="data4_real_plasma_coef_high.RData")
+save(data4_real_coef, file="data4_real_plasma_coef_high.RData")}
 
 coef_mat_set = data4_real_coef$coef_mat_set
 
