@@ -36,7 +36,7 @@ if (taus == "high"){
 
 
 # load Plasma data
-plasma = read.csv("doc7.txt", sep= "") ;  
+plasma = read.csv("Plasma_data.txt", sep= "") ;  
 
 # Take log transformation of the raw data
 Y = plasma[,13]
