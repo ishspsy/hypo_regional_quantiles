@@ -129,8 +129,51 @@ save(data4_real_coef, file="data4_real_boston_coef_middle.RData")
 data4_real_coef= real_main_function(taus="high", n,p,X_tr, Y_tr,t_point)
 save(data4_real_coef, file="data4_real_boston_coef_high.RData")
 
+coef_mat_set = data4_real_coef$coef_mat_set
+
+# Generating coefficient functions
+library(ggplot2)
+library(dplyr)
+library(tidyr)
 
 
+# Arrange estimated quantile coefficient functions.
+time_index= seq(0,1,0.05)
+
+coef_spec4_set = list()
+for (ind in 1:p){
+  coef_spec = coef_mat_set[[ind]]
+  colnames(coef_spec) = seq(0,1,length.out=21) 
+  rownames(coef_spec) =  tau0 
+  coef_spec2 = as.data.frame(coef_spec)
+  coef_spec2 = coef_spec2[-c(1,21)]
+  coef_spec2$Quantile = tau0 
+  coef_spec3 = gather(coef_spec2, "Index", "Values", 1:(ncol(coef_spec2)-1))
+  coef_spec4 = spread(coef_spec3, Index, Values)
+  coef_spec4=coef_spec4[,-1]
+  coef_spec4_set[[ind]] = coef_spec4
+}
 
 
+# plot lines for each coefficient and generating plots
+time_indexs= seq(0.05,0.95,0.05)
+
+for (iii in 1:length(coef_names_updated)){
+  mname = coef_names_updated[iii]
+  
+  if (data_real_ind == "boston"){
+    pdf(paste("coef_plot_boston_", taus,  "_",  mname, ".pdf", sep=""))}
+  if (data_real_ind == "plasma"){
+    pdf(paste("coef_plot_plasma_", taus, "_", mname, ".pdf", sep=""))
+  }
+  
+  plot(time_indexs, coef_spec4_set[[iii]][2,],type="l", lty=1, main = mname, ylim =range(coef_spec4_set), xlab  = 'Dietary beta-carotene index (T)',  #"lstat index (T)",       #,
+       ylab = expression(paste("Coefficients (", beta, "(", t, "))")),cex.main = 1.8, cex.axis = 1.3, cex.lab = 1.3)
+  for (irow in 2:5){
+    lines(time_indexs, coef_spec4_set[[iii]][2*irow,], lty=irow, cex=3)
+  }
+  legend("topright",legend= paste("tau", "=", tau[seq(2,10,2)],sep =" "), 
+         lty=c(1:5), lwd=rep(1,5), cex=1.5)
+  dev.off()
+}
 
