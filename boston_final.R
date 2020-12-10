@@ -26,24 +26,24 @@ if (ttest ==2){
 # load Boston data
 boston = read.csv("Boston_data.csv", sep= "")  
 
-Y = boston[,14];
+Y = boston[,14]
 U = boston[,13]
 Y= Y-mean(Y)
 
 # Choose the varaibles
-X =   boston[,c(6,1,10,11,5,7)];   
-U = (U - min(U)) / (max(U) - min(U));
+X =   boston[,c(6,1,10,11,5,7)]  
+U = (U - min(U)) / (max(U) - min(U))
 
-n = dim(X)[1]; 
-p = dim(X)[2];
+n = dim(X)[1] 
+p = dim(X)[2]
 
-X = cbind(X, rep(1, n));
+X = cbind(X, rep(1, n))
 
-n = dim(X)[1];
-p = dim(X)[2];
+n = dim(X)[1]
+p = dim(X)[2]
 
 # Normalize data
-X[,1:(p-1)] = X[,1:(p-1)] -  matrix(rep(apply(X[,1:(p-1)],2,mean),n), nrow =n, byrow=T)    ;
+X[,1:(p-1)] = X[,1:(p-1)] -  matrix(rep(apply(X[,1:(p-1)],2,mean),n), nrow =n, byrow=T) 
 
 yy = sqrt(apply(X[,1:(p-1)]^2,2,mean))
 
@@ -91,6 +91,21 @@ coef_names_updated = c(coef_names[-ind00], coef_names[ind00])
 if (ttest ==0){ind00 = 1:7}
 if (ttest == 1){ind00 = c(6,7)}  # test1: tax and age
 if (ttest == 2){ind00 = c(7)}  # test2:rm
+
+# Estimating for lower quantile region
+data4_real_coef= real_main_function(taus="low", n,p,X_tr, Y_tr,t_point)
+save(data4_real_coef, file="data4_real_boston_coef_low.RData")
+
+# Estimating for middle quantile region
+data4_real_coef= real_main_function(taus="middle", n,p,X_tr, Y_tr,t_point)
+save(data4_real_coef, file="data4_real_boston_coef_middle.RData")
+
+# Estimating for upper quantile region
+data4_real_coef= real_main_function(taus="high", n,p,X_tr, Y_tr,t_point)
+save(data4_real_coef, file="data4_real_boston_coef_high.RData")
+
+
+
 
 
 
