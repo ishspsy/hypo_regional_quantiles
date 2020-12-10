@@ -117,17 +117,21 @@ if (ttest ==0){ind00 = 1:7}
 if (ttest == 1){ind00 = c(6,7)}  # test1: tax and age
 if (ttest == 2){ind00 = c(7)}  # test2:rm
 
+ 
 # Estimating for lower quantile region
+if (taus == "low"){
 data4_real_coef= real_main_function(taus="low", n,p,X_tr, Y_tr,t_point)
-save(data4_real_coef, file="data4_real_boston_coef_low.RData")
+save(data4_real_coef, file="data4_real_boston_coef_low.RData")}
 
 # Estimating for middle quantile region
+if (taus == "middle"){
 data4_real_coef= real_main_function(taus="middle", n,p,X_tr, Y_tr,t_point)
-save(data4_real_coef, file="data4_real_boston_coef_middle.RData")
+save(data4_real_coef, file="data4_real_boston_coef_middle.RData")}
 
 # Estimating for upper quantile region
+if (taus == "high"){
 data4_real_coef= real_main_function(taus="high", n,p,X_tr, Y_tr,t_point)
-save(data4_real_coef, file="data4_real_boston_coef_high.RData")
+save(data4_real_coef, file="data4_real_boston_coef_high.RData")}
 
 coef_mat_set = data4_real_coef$coef_mat_set
 
