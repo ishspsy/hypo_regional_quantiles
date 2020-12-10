@@ -3,7 +3,8 @@
 
 data_real_ind = "boston"
 
-# bic_check = 0
+
+# Set "plot_save = 1" for generating coefficient functions
 plot_save = 1
 
 # In the estimation setting, must set to be "ttest = 0"
@@ -11,6 +12,30 @@ ttest = 0
 
 # quantile intervals (choose among "low", "middle", "high")
 taus = "low" 
+
+
+if (taus == "low"){
+  #fix this part for each tau
+  tau = seq(0.1,0.3,length.out=11)
+  tau0 = tau
+  K=length(tau)
+}
+
+if (taus == "middle"){
+  #fix this part for each tau
+  tau = seq(0.4,0.6,length.out=11)
+  tau0 = tau
+  K=length(tau)
+}
+
+if (taus == "high"){
+  #fix this part for each tau
+  tau = seq(0.7,0.9,length.out=11)
+  tau0 = tau
+  K=length(tau)
+}
+
+
 
 
 # In the testing setting, must set to be "ttest != 0"
