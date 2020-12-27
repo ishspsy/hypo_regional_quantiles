@@ -9,7 +9,7 @@ ttest = 0
 taus = "high"   
 tva = 0.01
 
-
+# You can change tau levels
 if (taus == "low"){
   load("resulting_files/data4_real_boston_coef_low.RData")
   tau = seq(0.1,0.3,length.out=11)
