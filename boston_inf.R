@@ -9,22 +9,22 @@ ttest = 0
 taus = "high"   
 tva = 0.01
 
+# Specify the quantile levels 
+tau =
+
 # You can change tau levels
 if (taus == "low"){
   load("resulting_files/data4_real_boston_coef_low.RData")
-  tau = seq(0.1,0.3,length.out=11)
   tau0 = tau
   K=length(tau)}
 
 if (taus == "middle"){
   load("resulting_files/data4_real_boston_coef_middle.RData")
-  tau = seq(0.4,0.6,length.out=11)
   tau0 = tau
   K=length(tau)}
 
 if (taus == "high"){
   load("resulting_files/data4_real_boston_coef_high.RData")
-  tau = seq(0.7,0.9,length.out=11)
   tau0 = tau
   K=length(tau)}
 
@@ -95,15 +95,15 @@ for (ias in 2:p){
   matvec2 = matrix(coef_ini, ncol=1)
   
   
-  ffff= dens(data_model$X_tr, data_model$Y_tr, tau, 11)
+  ffff= dens(data_model$X_tr, data_model$Y_tr, tau, length(tau))
   
   t_point= data_model$t_point
-  tau_all = seq(tau[1], tau[length(tau)], 11)
+  tau_all = seq(tau[1], tau[length(tau)], length(tau))
   
 
   bsp=bsplineS(tau_all, seq(min(tau)-0.02, max(tau)+0.02,length.out=6), norder=2, nderiv=0, returnMatrix=FALSE)
   bsp2=bsplineS(t_point, seq(0, 1, length.out=6), norder=2, nderiv=0, returnMatrix=FALSE)
-  ffff= dens(data_model$X_tr, data_model$Y_tr, tau,11)
+  ffff= dens(data_model$X_tr, data_model$Y_tr, tau,length(tau))
   
   X_tr = as.matrix(X_tr)
   
